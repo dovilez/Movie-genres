@@ -8,7 +8,6 @@ Flask==1.1.2
 gunicorn==20.0.4
 heroku==0.1.4
 idna==2.10
-imdb-scraper==0.0.1
 itsdangerous==1.1.0
 Jinja2==2.11.2
 joblib==1.0.0
