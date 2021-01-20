@@ -15,7 +15,7 @@ MarkupSafe==1.1.1
 mypy-extensions==0.4.3
 nltk==3.5
 numpy==1.19.5
-pandas==1.2.1
+pandas==1.1.5
 pathspec==0.8.1
 psycopg2==2.8.6
 python-dateutil==1.5
