@@ -9,7 +9,6 @@ from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
 from sklearn.multiclass import OneVsRestClassifier
 from sklearn.metrics import f1_score
-from scraping import scraping
 
 
 def main():
