@@ -51,17 +51,20 @@ def predict() -> str:
         for count, i in enumerate(input_params):
             pred = ", ".join(predictions[count])
             cur.execute(
-                f"INSERT INTO prediction(input, output) VALUES('{i}', '{pred}')"
+                f"INSERT INTO prediction(input, output, time) VALUES('{i}', '{pred}', '{datetime.datetime.now()}' )"
             )
         db_connection.commit()
 
     except Exception as e:
-        response = app.response_class(response=json.dumps({"error": f"{e.__class__} occured"}),
-                                      status=400)
+        response = app.response_class(
+            response=json.dumps({"error": f"{e.__class__} occured"}), status=400
+        )
         return response
 
-    response = app.response_class(response=json.dumps({"predictions:": binarizer.inverse_transform(prediction)}),
-                                  status=200)
+    response = app.response_class(
+        response=json.dumps({"predictions:": binarizer.inverse_transform(prediction)}),
+        status=200,
+    )
     return response
 
 
@@ -69,7 +72,7 @@ def predict() -> str:
 def recent() -> str:
     """Show 10 most recent requests and responses"""
     cur = db_connection.cursor()
-    cur.execute("SELECT *  FROM prediction ORDER BY id DESC LIMIT 10")
+    cur.execute("SELECT *  FROM prediction ORDER BY time DESC LIMIT 10")
     rows = cur.fetchall()
     predictions = [{"input": row[1], "output": row[2]} for row in rows]
     return json.dumps({"predictions": predictions})

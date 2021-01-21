@@ -59,7 +59,7 @@ def remove_stopwords(text):
     :param text: text to clean
     :return: text with removed stopwords
     """
-    # nltk.download('stopwords')
+    nltk.download("stopwords")
     stop_words = set(stopwords.words("english"))
     no_stopword_text = [w for w in text.split() if not w in stop_words]
     return " ".join(no_stopword_text)
