@@ -9,7 +9,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
 from sklearn.multiclass import OneVsRestClassifier
 from sklearn.metrics import f1_score
-
+import scraping.scraping as scraping
 
 def main():
     # search_words = ['action', 'comedy', 'sci-fi', 'horror', 'romance', 'thriller', 'drama', 'mystery', 'crime',
@@ -29,7 +29,7 @@ def prepare_dataframe(df):
     :param df: DataFrame to prepare
     :return: clean DataFrame for training
     """
-    df = df.drop(["Unnamed: 0", "rating"], axis=1).drop_duplicates()
+    df = df.drop_duplicates()
     df["genre"] = df["genre"].apply(eval)
     df["clean_plot"] = df["plot"].apply(lambda x: clean_text(x))
     df["clean_plot"] = df["clean_plot"].apply(lambda x: remove_stopwords(x))
@@ -72,12 +72,12 @@ def train_model(df):
 
     y = multilabel_binarizer.transform(df["genre"])
 
-    tfidf_vectorizer = TfidfVectorizer(max_df=0.8, max_features=10000)
     xtrain, xval, ytrain, yval = train_test_split(
         df["clean_plot"], y, test_size=0.2, random_state=9
     )
 
     # create TF-IDF features
+    tfidf_vectorizer = TfidfVectorizer(max_df=0.8, max_features=10000)
     xtrain_tfidf = tfidf_vectorizer.fit_transform(xtrain)
     pickle.dump(tfidf_vectorizer, open("model/vectorizer.pkl", "wb"))
     #xval_tfidf = tfidf_vectorizer.transform(xval)
