@@ -51,7 +51,7 @@ def predict() -> str:
         for count, i in enumerate(input_params):
             pred = ", ".join(predictions[count])
             cur.execute(
-                f"INSERT INTO prediction(input, output, time) VALUES('{i}', '{pred}', '{datetime.datetime.now()}' )"
+                f"INSERT INTO prediction(input, output) VALUES('{i}', '{pred}')"
             )
         db_connection.commit()
 
@@ -69,7 +69,7 @@ def predict() -> str:
 def recent() -> str:
     """Show 10 most recent requests and responses"""
     cur = db_connection.cursor()
-    cur.execute("SELECT *  FROM prediction ORDER BY time DESC LIMIT 10")
+    cur.execute("SELECT *  FROM prediction ORDER BY id DESC LIMIT 10")
     rows = cur.fetchall()
     predictions = [{"input": row[1], "output": row[2]} for row in rows]
     return json.dumps({"predictions": predictions})
