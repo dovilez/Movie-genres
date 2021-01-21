@@ -42,13 +42,9 @@ def clean_text(text):
     :param text: text to clean
     :return: cleaned text
     """
-    # remove backslash-apostrophe
     text = re.sub("'", "", text)
-    # remove everything except alphabets
     text = re.sub("[^a-zA-Z]", " ", text)
-    # remove whitespaces
     text = " ".join(text.split())
-    # convert text to lowercase
     text = text.lower()
     return text
 
@@ -74,11 +70,9 @@ def train_model(df):
     multilabel_binarizer.fit(df["genre"])
     pickle.dump(multilabel_binarizer, open("model/binarizer.pkl", "wb"))
 
-    # transform target variable
     y = multilabel_binarizer.transform(df["genre"])
 
     tfidf_vectorizer = TfidfVectorizer(max_df=0.8, max_features=10000)
-    # split dataset into training and validation set
     xtrain, xval, ytrain, yval = train_test_split(
         df["clean_plot"], y, test_size=0.2, random_state=9
     )
@@ -86,12 +80,11 @@ def train_model(df):
     # create TF-IDF features
     xtrain_tfidf = tfidf_vectorizer.fit_transform(xtrain)
     pickle.dump(tfidf_vectorizer, open("model/vectorizer.pkl", "wb"))
-    xval_tfidf = tfidf_vectorizer.transform(xval)
+    #xval_tfidf = tfidf_vectorizer.transform(xval)
 
     lr = LogisticRegression()
     clf = OneVsRestClassifier(lr)
 
-    # fit model on train data
     clf.fit(xtrain_tfidf, ytrain)
     pickle.dump(clf, open("model/classifier.pkl", "wb"))
 

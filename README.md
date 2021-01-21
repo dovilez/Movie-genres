@@ -1,41 +1,47 @@
-# IMDb-scraper
-> Data scraper for scraping IMDb.
+# Movie genre predictions
+> Regression model that can predict a movie genres based on the plot
 
 ## Table of contents
 * [General info](#general-info)
 * [Technologies](#technologies)
-* [Installation](#installation)
-* [Code Examples](#code-examples)
+* [Usage](#usage)
 * [Status](#status)
 * [Inspiration](#inspiration)
 * [Contact](#contact)
 
 ## General info
-This scraper let's you scrape movies from IMDb based on genre. Information stored about each movie: title, year, duration, rating, genres, plot, IMDb rating, url to poster.
+This is a Flask based application for a trained regression model that can predict movie genres based on the plot.
+The application is deployed using Heroku.
 
+train_model.py file contains the code for training and saving the model.
+
+database.py file contains code for creating required database.
+
+app.py file contains the Flask API.
 ## Technologies
 Project is created with:
 * Python 3.9.0
-* BeautifulSoup4
+* Flask 1.1.2
+* Heroku
 
-## Installation
-1. Install the package using pip:
-```
-pip install git+https://github.com/dovilez/IMDbscraper
-```
-2. Import the scraping module:
-```
-from scraping import scraping
-```
+## Usage
+The link to the application for predictions:
 
-## Code Examples
-Specify the genres and number of movies to scrape, then use collect_keywords function:
-```
-genres = ['action', 'comedy', 'sci-fi', 'horror']
-number_of_movies = 100
-df = scraping.collect_keywords(genres, number_of_movies)
-```
+https://movie-predict3.herokuapp.com/predict
 
+You can also see the top 10 most recent predictions:
+
+https://movie-predict3.herokuapp.com/recent
+
+Code Example:
+```
+requests.post("https://predict-house-price.herokuapp.com/predict", data=json.dumps({
+    "input": [
+         "A comedy centered on the life of Kate Reddy, a finance executive who is the breadwinner for her husband and two kids.", 
+        "An American showgirl becomes entangled in political intrigue when the Prince Regent of a foreign country attempts to seduce her."
+    ]
+}))
+```
 
 ## Status
 Project is: _finished_
