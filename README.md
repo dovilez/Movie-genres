@@ -27,15 +27,15 @@ Project is created with:
 ## Usage
 The link to the application for predictions:
 
-https://movie-predict3.herokuapp.com/predict
+https://predict-movie-genres.herokuapp.com/predict
 
 You can also see the top 10 most recent predictions:
 
-https://movie-predict3.herokuapp.com/recent
+https://predict-movie-genres.herokuapp.com/recent
 
 Code Example:
 ```
-requests.post("https://predict-house-price.herokuapp.com/predict", data=json.dumps({
+requests.post("https://predict-movie-genres.herokuapp.com/predict", data=json.dumps({
     "input": [
          "A comedy centered on the life of Kate Reddy, a finance executive who is the breadwinner for her husband and two kids.", 
         "An American showgirl becomes entangled in political intrigue when the Prince Regent of a foreign country attempts to seduce her."
