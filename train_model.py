@@ -11,19 +11,21 @@ from sklearn.multiclass import OneVsRestClassifier
 from sklearn.metrics import f1_score
 
 
-def main():
+def main() -> None:
+    # Code to scrape the imdb website if it hasn't been done yet
     # search_words = ['action', 'comedy', 'sci-fi', 'horror', 'romance', 'thriller', 'drama', 'mystery', 'crime',
     #                'animation', 'adventure', 'fantasy', 'superhero']
     # df = scraping.collect_keywords(search_words, 100)
     # df.to_csv("imdb.csv")
-
+    
+    # read the scraped data and train the model
     df = pd.read_csv("imdb.csv").dropna()
     df = prepare_dataframe(df)
     train_model(df)
     print(df)
 
 
-def prepare_dataframe(df):
+def prepare_dataframe(df: pd.DataFrame) -> pd.DataFrame:
     """
     Function to prepare the dataframe
     :param df: DataFrame to prepare
@@ -36,7 +38,7 @@ def prepare_dataframe(df):
     return df
 
 
-def clean_text(text):
+def clean_text(text: str) ->  str:
     """
     Function for text cleaning
     :param text: text to clean
@@ -49,7 +51,7 @@ def clean_text(text):
     return text
 
 
-def remove_stopwords(text):
+def remove_stopwords(text: str) ->  str:
     """
     Function to remove stopwords
     :param text: text to clean
@@ -61,7 +63,7 @@ def remove_stopwords(text):
     return " ".join(no_stopword_text)
 
 
-def train_model(df):
+def train_model(df: pd.DataFrame) -> pd.DataFrame:
     """
     Function to train the model
     :param df: DataFrame for training
