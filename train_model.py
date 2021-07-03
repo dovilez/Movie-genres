@@ -70,7 +70,8 @@ def train_model(df: pd.DataFrame) -> pd.DataFrame:
     """
     multilabel_binarizer = MultiLabelBinarizer()
     multilabel_binarizer.fit(df["genre"])
-    pickle.dump(multilabel_binarizer, open("model/binarizer.pkl", "wb"))
+    with open("model/binarizer.pkl", "wb") as output_file:
+        pickle.dump(multilabel_binarizer, output_file)
 
     y = multilabel_binarizer.transform(df["genre"])
 
@@ -81,14 +82,15 @@ def train_model(df: pd.DataFrame) -> pd.DataFrame:
 
     # create TF-IDF features
     xtrain_tfidf = tfidf_vectorizer.fit_transform(xtrain)
-    pickle.dump(tfidf_vectorizer, open("model/vectorizer.pkl", "wb"))
-    #xval_tfidf = tfidf_vectorizer.transform(xval)
+    with open("model/vectorizer.pkl", "wb") as output_file:
+        pickle.dump(tfidf_vectorizer, output_file)
 
     lr = LogisticRegression()
     clf = OneVsRestClassifier(lr)
 
     clf.fit(xtrain_tfidf, ytrain)
-    pickle.dump(clf, open("model/classifier.pkl", "wb"))
+    with open("model/classifier.pkl", "wb") as output_file:
+        pickle.dump(clf, output_file)
 
 
 if __name__ == "__main__":
