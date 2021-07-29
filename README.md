@@ -18,6 +18,9 @@ train_model.py file contains the code for training and saving the model.
 database.py file contains code for creating required database.
 
 app.py file contains the Flask API.
+
+To gather the data needed for model training, a [custom IMDb scraper](https://github.com/dovilez/IMDbscraper)was used. The scraper takes a list of movie genres and a number of movies as input and scrapes the information about movies from IMDb. Information stored about each movie: title, year, duration, rating, genres, plot, IMDb rating, url to poster.
+
 ## Technologies
 Project is created with:
 * Python 3.9.0
